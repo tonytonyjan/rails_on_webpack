@@ -5,40 +5,42 @@ if (__PRODUCTION__) {
   var ExtractTextPlugin = require('extract-text-webpack-plugin')
 }
 
-var CONFIG = {
+var filename = __PRODUCTION__ ? 'application-[hash].js' : 'application.js'
+var styleLoader = __PRODUCTION__ ? ExtractTextPlugin.extract('style', 'css!sass') : 'style!css!sass'
+var fileLoader = __PRODUCTION__ ? 'file?name=[name]-[hash].[ext]' : 'file?name=[name].[ext]'
+var plugins = [
+  function() {
+    this.plugin('done', function(stats) {
+      require('fs').writeFileSync(__dirname + '/stats.json', JSON.stringify(stats.toJson()))
+    })
+  }
+]
+
+if (__PRODUCTION__) {
+  plugins.push(
+    new ExtractTextPlugin('application-[hash].css'),
+    new UglifyJsPlugin()
+  )
+}
+
+module.exports = {
   entry: './app/assets/javascripts/application.coffee',
   output: {
     path: __dirname + '/public/assets',
-    filename: 'application.js',
+    filename: filename,
     publicPath: '/assets/'
   },
-  plugins: [
-    function() {
-      this.plugin('done', function(stats) {
-        require('fs').writeFileSync(__dirname + '/stats.json', JSON.stringify(stats.toJson()))
-      })
-    }
-  ],
+  plugins: plugins,
   module: {
     loaders: [{
       test: /\.scss$/,
-      loader: __PRODUCTION__ ? ExtractTextPlugin.extract('style', 'css!sass') : 'style!css!sass'
+      loader: styleLoader
     }, {
       test: /\.(jpg|png|gif|ttf|eot|svg|woff2?)$/,
-      loader: __PRODUCTION__ ? 'file?name=[name]-[hash].[ext]' : 'file?name=[name].[ext]'
+      loader: fileLoader
     }, {
       test: /\.coffee$/,
       loader: 'coffee'
     }]
   }
 }
-
-if (__PRODUCTION__) {
-  CONFIG.plugins.push(
-    new ExtractTextPlugin('application-[hash].css'),
-    new UglifyJsPlugin()
-  )
-  CONFIG.output.filename = 'application-[hash].js'
-}
-
-module.exports = CONFIG
