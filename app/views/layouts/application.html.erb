@@ -2,12 +2,11 @@
 <html>
 <head>
   <title>RailsOnWebpack</title>
-  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= stylesheet_link_tag 'application', media: 'all' if Rails.env.production? %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<%= yield %>
-
+  <%= yield %>
+  <%= javascript_include_tag 'application' %>
 </body>
 </html>
