@@ -4,12 +4,12 @@ module WebpackStats
 
   class << self
     def assets
-      load! if RELOAD
+      load! if RELOAD || !@assets
       @assets
     end
 
     def stats
-      load! if RELOAD
+      load! if RELOAD || !@stats
       @stats
     end
 
