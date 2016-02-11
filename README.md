@@ -1,6 +1,6 @@
 # Rails on Webpack
 
-This product is a demonstration of integration between Rails and Webpack without using any ruby gem, including some frequently used packages such as:
+This product is a demonstration of integration between Rails and Webpack without using any ruby gem, including some usefule tools and packages such as:
 
 - SASS
 - CoffeeScript
