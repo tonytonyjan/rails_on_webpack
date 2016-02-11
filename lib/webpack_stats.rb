@@ -13,6 +13,7 @@ module WebpackStats
       @stats
     end
 
+    # load webpack stats file, process and store it.
     def load!
       @stats = JSON.parse File.read Rails.root.join('stats.json')
       @assets = {}
