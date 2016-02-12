@@ -24,7 +24,7 @@ if (__PRODUCTION__) {
 }
 
 module.exports = {
-  entry: './app/assets/javascripts/application.coffee',
+  entry: './app/assets/javascripts/application.js',
   output: {
     path: __dirname + '/public/assets',
     filename: filename,
@@ -41,6 +41,14 @@ module.exports = {
     }, {
       test: /\.coffee$/,
       loader: 'coffee'
+    }, {
+      test: /\.jsx?$/,
+      exclude: /node_modules/,
+      loader: 'babel',
+      query: {
+        presets: ['react', 'es2015'],
+        plugins: ['transform-object-rest-spread']
+      }
     }]
   }
 }
