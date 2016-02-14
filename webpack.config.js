@@ -36,7 +36,7 @@ module.exports = {
       test: /\.scss$/,
       loader: styleLoader
     }, {
-      test: /\.(jpg|png|gif|ttf|eot|svg|woff2?)$/,
+      test: /\.(jpg|png|gif|ttf|eot|svg|woff2?)(\?.+)?$/,
       loader: fileLoader
     }, {
       test: /\.coffee$/,
