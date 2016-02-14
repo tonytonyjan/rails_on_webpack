@@ -6,7 +6,7 @@ if (__PRODUCTION__) {
 }
 
 var filename = __PRODUCTION__ ? 'application-[hash].js' : 'application.js'
-var styleLoader = __PRODUCTION__ ? ExtractTextPlugin.extract('style', 'css!sass') : 'style!css!sass'
+var styleLoader = __PRODUCTION__ ? ExtractTextPlugin.extract('style', 'css!postcss!sass') : 'style!css!postcss!sass'
 var fileLoader = __PRODUCTION__ ? 'file?name=[name]-[hash].[ext]' : 'file?name=[name].[ext]'
 var plugins = [
   function() {
@@ -50,5 +50,8 @@ module.exports = {
         plugins: ['transform-object-rest-spread']
       }
     }]
+  },
+  postcss: function() {
+    return [require('autoprefixer')]
   }
 }
