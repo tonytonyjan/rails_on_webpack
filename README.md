@@ -8,6 +8,8 @@ This product is a demonstration of integration between Rails and Webpack without
 - React
 - ES6
 
+If you really want to use a gem rather than DIY, [click here](http://github.com/tonytonyjan/webpack_stats)
+
 ## Usage
 
 ```
@@ -23,7 +25,3 @@ You can set `WEBPACK_ENV` environment variable to `production` to build optimize
 ## How it works?
 
 It's simple to intergrate Rails with webpack by using the its stats file and overwriting `#compute_asset_path`.
-
-## Gem?
-
-[here](http://github.com/tonytonyjan/webpack_stats)
